@@ -1,14 +1,14 @@
 class Movie{
-  constructor(id, title, imgURL){
+  constructor(id, title, posterURL){
     this._id = id
     this._title = title
-    this._imgURL = imgURL
+    this._posterURL = posterURL
   }
   get title(){
     return this._title
   }
-  get imgURL(){
-    return this._imgURL
+  get posterURL(){
+    return this._posterURL
   }
   get id(){
     return this._id

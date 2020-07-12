@@ -7,7 +7,39 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+  <div id="root-container">
+    <header>MY WATCH LIST</header>
+    <nav>
+      <ul>
+        <li>Find</li>
+        <li>Watch</li>
+        <li>Done</li>
+      </ul>
+    </nav>
+    <main>
+      <div id="find-container">
+        <input type="text" id="input-search">
+        <button id="btn-search">FIND</button>
+        <div id="search-results"></div>
+      </div>
+      <div id="watch-container">
+        <h2>Movies I must Watch</h2>
+      </div>
+      <div id="done-container">
+        <h2>Movies I've Finished</h2>
+      </div>
+    </main>
+  </div>
   
+  <script id="search-results-template" type="text/x-handlebars-template">
+    {{#each data}}
+      <div data-id="{{id}}" class="single-movie-container">
+        <img class="single-movie-poster" src="{{poster}}">
+        <h3 class="single-movie-title">{{title}}</h3>
+      </div>
+    {{/each}}
+  </script>
+
   <script src="./handlebars/dist/handlebars.min.js"></script>
   <script src="./jquery/dist/jquery.min.js"></script>
   <script src="./controller/main.js" type="module"></script>
