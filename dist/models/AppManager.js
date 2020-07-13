@@ -7,12 +7,6 @@ export class AppManager {
     this._currentMustItems = new MovieList
     this._currentDoneItems = new MovieList
   }
-  createCurrentSearchList(dataArray){
-    this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)))
-  }
-  moveFromListToList(fromList, toList, movieId){
-    fromList.moveToList(toList, movieId)
-  }
   get currentSearchedItems(){
     return this._currentSearchItems
   }
@@ -22,11 +16,24 @@ export class AppManager {
   get currentDoneItems(){
     return this._currentDoneItems
   }
+  createCurrentSearchList(dataArray){
+    this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)))
+    this._currentSearchItems.movieList.forEach(movie => movie.setCurrentList(this._currentSearchItems))
+  }
+  moveFromListToList(fromList, toList, movieId){
+    fromList.moveToList(toList, movieId)
+  }
   getAllLists = () => {
     return {
       searchList: this._currentSearchItems,
       mustList: this._currentMustItems,
       doneList: this._currentDoneItems
     }
+  }
+  findListWithMovie = (movieId) => {
+    return(Object.values(this.getAllLists()).find(list => list.getMovieById(movieId)))
+  }
+  removeItem = (movieId) => {
+    this.findListWithMovie(movieId).removeMovie(movieId)
   }
 }

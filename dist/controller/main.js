@@ -29,3 +29,8 @@ $('#must-results').on('click', '.add-to-must', function() {
     $(this).closest('.single-movie-container').data().id)
   renderer.renderLists(appManager.getAllLists())
 })
+
+$('main').on('click', '.remove-from-list', function(){
+  appManager.removeItem($(this).closest('.single-movie-container').data().id)
+  renderer.renderLists(appManager.getAllLists())
+})

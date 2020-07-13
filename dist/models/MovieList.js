@@ -10,6 +10,7 @@ export class MovieList{
   }
   addMovie = (movie) => {
     this._movielist.push(movie)
+    movie.setCurrentList(this)
   }
   removeMovie =(movieId) =>{
     this._movielist = this._movielist.filter(movie => movie.id !== movieId)

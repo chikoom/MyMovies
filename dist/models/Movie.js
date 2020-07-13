@@ -3,5 +3,9 @@ export class Movie {
     this.id = id
     this.title = title
     this.posterURL = posterURL
+    this.currentList = {}
+  }
+  setCurrentList(movieList){
+    this.currentList = movieList
   }
 }
