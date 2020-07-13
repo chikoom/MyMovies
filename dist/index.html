@@ -22,11 +22,13 @@
         <button id="btn-search">FIND</button>
         <div id="search-results"></div>
       </div>
-      <div id="watch-container">
+      <div id="must-container">
         <h2>Movies I must Watch</h2>
+        <div id="must-results"></div>
       </div>
       <div id="done-container">
         <h2>Movies I've Finished</h2>
+        <div id="done-results"></div>
       </div>
     </main>
   </div>
@@ -34,8 +36,13 @@
   <script id="search-results-template" type="text/x-handlebars-template">
     {{#each data}}
       <div data-id="{{id}}" class="single-movie-container">
-        <img class="single-movie-poster" src="{{poster}}">
+        <img class="single-movie-poster" src="{{posterURL}}">
         <h3 class="single-movie-title">{{title}}</h3>
+        <h3 class="single-movie-id">{{id}}</h3>
+        <div class="single-movie-buttons">
+          <button class="add-to-must">Must Watch</button>
+          <button class="add-to-watched">Watched</button>
+        </div>
       </div>
     {{/each}}
   </script>

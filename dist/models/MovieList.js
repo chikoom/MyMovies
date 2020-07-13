@@ -1,16 +1,21 @@
-class MovieList{
-  constructor(){
-    this._movielist = []
+export class MovieList{
+  constructor(moviesArray){
+    this._movielist = moviesArray || []
   }
   get movieList(){
     return this._movielist
   }
-  addMovie(movie){
-    this._movielist.push(movie)
-    return this._movielist
+  getMovieById = (movieId) =>{
+    return this._movielist.find(movie => movie.id === movieId)
   }
-  removeMovie(movieId){
+  addMovie = (movie) => {
+    this._movielist.push(movie)
+  }
+  removeMovie =(movieId) =>{
     this._movielist = this._movielist.filter(movie => movie.id !== movieId)
-    return this._movielist
+  }
+  moveToList = (newList, movieId) =>{
+    newList.addMovie(this.getMovieById(movieId))
+    this.removeMovie(movieId)
   }
 }

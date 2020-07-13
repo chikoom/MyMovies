@@ -1,12 +1,31 @@
-import { APIManager } from '../models/APIManager.js'
-import { Renderer } from '../views/Render.js'
+import { AppManager }   from '../models/AppManager.js'
+import { APIManager }   from '../models/APIManager.js'
+import { Renderer }     from '../views/Render.js'
 
-const apiManager = new APIManager()
-const renderer = new Renderer()
+const appManager  =  new AppManager()
+const apiManager  =  new APIManager()
+const renderer    =  new Renderer()
 
 $('#btn-search').on('click', function() {
   apiManager.searchMovie($('#input-search').val())
-  .then(function(result){
-    renderer.renderSearchResults(result)
+  .then( result => {
+    appManager.createCurrentSearchList(result)
+    renderer.renderLists(appManager.getAllLists())
   })
+})
+
+$('#search-results').on('click', '.add-to-must', function() {
+  appManager.moveFromListToList(
+    appManager.currentSearchedItems,
+    appManager.currentMustItems,
+    $(this).closest('.single-movie-container').data().id)
+  renderer.renderLists(appManager.getAllLists())
+})
+
+$('#must-results').on('click', '.add-to-must', function() {
+  appManager.moveFromListToList(
+    appManager.currentMustItems,
+    appManager.currentDoneItems,
+    $(this).closest('.single-movie-container').data().id)
+  renderer.renderLists(appManager.getAllLists())
 })
