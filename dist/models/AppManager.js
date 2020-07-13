@@ -3,9 +3,9 @@ import { MovieList } from './MovieList.js'
 
 export class AppManager {
   constructor(){
-    this._currentSearchItems = new MovieList
-    this._currentMustItems = new MovieList
-    this._currentDoneItems = new MovieList
+    this._currentSearchItems = new MovieList([],'search')
+    this._currentMustItems = new MovieList([],'must')
+    this._currentDoneItems = new MovieList([],'done')
   }
   get currentSearchedItems(){
     return this._currentSearchItems
@@ -17,7 +17,7 @@ export class AppManager {
     return this._currentDoneItems
   }
   createCurrentSearchList(dataArray){
-    this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)))
+    this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)),'search')
     this._currentSearchItems.movieList.forEach(movie => movie.setCurrentList(this._currentSearchItems))
   }
   moveFromListToList(fromList, toList, movieId){

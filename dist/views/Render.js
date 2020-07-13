@@ -1,3 +1,10 @@
+Handlebars.registerHelper('if_eq', function(a, b, opts) {
+  if (a == b) {
+      return opts.fn(this);
+  } else {
+      return opts.inverse(this);
+  }
+})
 export class Renderer {
   renderLists(movieLists){
     const template = Handlebars.compile($(`#search-results-template`).html())
@@ -8,4 +15,5 @@ export class Renderer {
     const doneHTML = template({ data: movieLists['doneList'].movieList })
     $('#done-results').empty().append(doneHTML)
   }
+  
 }

@@ -1,5 +1,6 @@
 export class MovieList{
-  constructor(moviesArray){
+  constructor(moviesArray, typeName){
+    this.typeName = typeName
     this._movielist = moviesArray || []
   }
   get movieList(){
