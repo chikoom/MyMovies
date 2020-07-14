@@ -20,10 +20,4 @@ export class MovieList{
     newList.addMovie(this.getMovieById(movieId))
     this.removeMovie(movieId)
   }
-  simpleVersion(){
-    return {
-      movielist: this._movielist.map(movie => movie.simpleVersion()),
-      typeName: this.typeName
-    }
-  }
 }

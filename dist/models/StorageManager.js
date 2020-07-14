@@ -8,7 +8,44 @@ export class StorageManager{
                                   doneList: {}
                               }}
     this._lastLoggedUser = localStorage.getItem('lastLoggedUser') || 'default'
+    this._allUsers = Object.keys(this._currentUsersData)
   }
+  saveCurrentLists(movieLists){
+    this._currentUsersData[this._lastLoggedUser] = {
+      username: this._lastLoggedUser,
+      darkLight: 'light',
+      mustList: movieLists['must'],
+      doneList: movieLists['done']
+    }
+    localStorage.setItem('users', JSON.stringify(this._currentUsersData))
+    localStorage.setItem('lastLoggedUser', this._lastLoggedUser)
+  }
+  updateCurrentUser(userName){
+    this._lastLoggedUser = userName
+  }
+  getCurrentUsersData(){
+    return this._currentUsersData[this._lastLoggedUser]
+  }
+  getAllUsers(){
+    return this._allUsers
+  }
+  getCurrentUser(){
+    return this._lastLoggedUser
+  }
+
+
+
+
+
+
+  simplifyList(movielist){
+    return {
+      movielist: movielist.map(movie => movie.simpleVersion()),
+      typeName: movielist.typeName
+    }
+  }
+  
+
   get usersData(){
     return this._currentUsersData
   }
@@ -21,16 +58,7 @@ export class StorageManager{
   setUserTheme(userName, theme){
     this._currentUsersData.find(user => userName === user.username).darkLight = theme
   }
-  saveCurrentLists(userName, movieLists){
-    this._currentUsersData[userName] = {
-      username: userName,
-      darkLight: 'light',
-      watchList: movieLists.mustList.simpleVersion(),
-      doneList: movieLists.doneList.simpleVersion()
-    }
-    localStorage.setItem('users', JSON.stringify(this._currentUsersData))
-    localStorage.setItem('lastLoggedUser', userName)
-  }
+  
   saveToStorage(usersData){
     localStorage.setItem('users', JSON.stringify(usersData))
     localStorage.setItem('lastLoggedUser', userName)

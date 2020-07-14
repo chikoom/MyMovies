@@ -10,12 +10,13 @@
   <div id="root-container">
     <header>MY WATCH LIST</header>
     <nav>
-      <div id="current-user">Current User: default</div>
-      <select>
+      <div id="current-user">Current User: <span id="current-username">default</span></div>
+      <select id="select-user">
         <option selected="selected" value=0>Switch User Profile</option>
       </select>
        OR 
       <input id="input-username" type="text" placeholder="Create new username">
+      <button id="create-user">Create User</button>
       <button id="save-to-storage">Save Lists</button>
       <ul>
         <li>Find</li>
@@ -48,18 +49,17 @@
         <h3 class="single-movie-title">{{title}}</h3>
         <h3 class="single-movie-id">{{id}}</h3>
         <div class="single-movie-buttons">
-          {{#if_eq currentList.typeName 'search'}}
+          {{#if_eq ../list 'search'}}
           <button data-target="must" class="move-to-list">Must Watch</button>
           <button data-target="done" class="move-to-list">Watched</button>
           {{else}}
-            {{#if_eq currentList.typeName 'must'}}
+            {{#if_eq ../list 'must'}}
             <button data-target="done" class="move-to-list">Watched</button>
             {{else}}
             <button data-target="must" class="move-to-list">Must Watch</button>
             {{/if_eq }}
             <button class="remove-from-list">Remove</button>
           {{/if_eq }}
-          {{currentList.typeName}}
         </div>
       </div>
     {{/each}}

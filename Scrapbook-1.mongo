@@ -1,0 +1,113 @@
+db.firstCollection.find({})
+
+db.firstCollection.insert({
+    _id: 99143,
+    name: "Shoobert"
+})
+ db.firstCollection.insert({
+   currentBalance: 500,
+   accountDetails: {
+     fullName: "idan Baron",
+     accountNumber: 6736
+   }
+ })
+
+
+ db.firstCollection.find({
+   "accountDetails": {
+     "fullName": "idan baron"
+   }
+ })
+
+ db.firstCollection.insert({ name: "Louise", salary: 1200 })
+db.firstCollection.insert({ name: "Rayna", salary: 2300 })
+db.firstCollection.insert({ name: "Soren", salary: 1500 })
+db.firstCollection.insert({ name: "Loreli", salary: 800 })
+db.firstCollection.insert({ name: "Milo", salary: 950 })
+db.firstCollection.insert({ name: "Brendon", salary: 1100 })
+
+db.firstCollection.find({
+    salary:{
+      $gt: 1000
+    }
+  },
+  {
+    name:1,
+    _id:0
+  }
+)
+
+db.firstCollection.find({
+})
+
+db.firstCollection.find({
+  name:"Razu"
+},{
+  "hometown.city":1
+})
+
+db.firstCollection.update({
+  name:'Loreli'
+},
+{
+  $set:{
+    salary: 999999
+  }
+})
+
+db.firstCollection.update({
+  name:"Soren"
+},
+{
+  $set:{
+    dreams:[]
+  }
+})
+
+db.firstCollection.update({
+  name:"Soren"
+},
+{
+  $push:{dreams:{$each:['Living the life','Survive the lesson']}}
+})
+
+db.firstCollection.find({
+  name:"Soren"
+})
+
+db.firstCollection.insert({name: "Spore", hobbies: ["Running", "Hip Hop", "Basketball", "Soccer"]})
+db.firstCollection.insert({name: "Daniel", hobbies: ["Hip Hop", "Ballet", "Salsa", "Running"]})
+db.firstCollection.insert({name: "Beckie", hobbies: ["Reading", "Running", "Hip Hop", "Writing", "Debate", "Philosophy"]})
+db.firstCollection.insert({name: "Dugg", hobbies: ["Philosophy", "Psychology"]})
+
+
+db.firstCollection.find({
+    hobbies: "Philosophy"
+})
+
+db.firstCollection.remove({})
+
+
+db.firstCollection.insert({ name: "Louise", dept: "Finance", salary: 1200,currentEmployee:true })
+db.firstCollection.insert({ name: "Rayna", dept: "R&D", salary: 2300,currentEmployee:true })
+db.firstCollection.insert({ name: "Soren", dept: "Finance", salary: 1500 ,currentEmployee:false })
+db.firstCollection.insert({ name: "Loreli", dept: "Sales", salary: 800,currentEmployee:false })
+db.firstCollection.insert({ name: "Milo", dept: "Sales", salary: 950,currentEmployee:true })
+db.firstCollection.insert({ name: "Brendon", dept: "Finance", salary: 1100,currentEmployee:false })
+
+
+db.firstCollection.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      totalSalaries: {
+        $sum: 1
+      }
+    }
+  }
+])
+
+db.firstCollection.remove({})
+
+
+

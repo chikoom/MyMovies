@@ -20,7 +20,7 @@ router.get('/movie/:movieName', (req, res) => {
     res.send(response.data.results.map(movie => ({
       id: movie.id,
       title: movie.title,
-      poster: POSTERURL+movie.poster_path
+      posterURL: POSTERURL+movie.poster_path
     })))
   })
   .catch(function (error) {

@@ -1,25 +1,34 @@
 import { Movie } from './Movie.js'
-import { MovieList } from './MovieList.js'
+// import { MovieList } from './MovieList.js'
 
 export class AppManager {
   constructor(){
     this.movieLists = {
-      search: new MovieList([],'search'),
-      must: new MovieList([],'must'),
-      done: new MovieList([],'done')
+      search: [],
+      must: [],
+      done: []
     }
   }
   getAllLists(){
     return this.movieLists
   }
   updateMovieList(listName, dataArray){
-    const newMovieArray = dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster))
-    this.movieLists[listName] = new MovieList(newMovieArray, listName)
+    dataArray.forEach(movie => {
+      this.movieLists[listName].push(new Movie(movie.id, movie.title, movie.posterURL))
+    })
   }
   moveFromListToList(fromList, toList, movieId){
-    this.movieLists[fromList].moveToList(this.movieLists[toList], movieId)
+    const movieIndex = this.movieLists[fromList].findIndex(movie => movie.id === movieId)
+    this.movieLists[toList].push(this.movieLists[fromList][movieIndex])
+    this.movieLists[fromList].splice(movieIndex, 1)
   }
-
+  recreateFromStorage(storedData){
+    this.updateMovieList('done', storedData.doneList)
+    this.updateMovieList('must', storedData.mustList)
+  }
+  removeItem = (movieList, movieId) => {
+    this.movieLists[movieList] = this.movieLists[movieList].filter(movie => movie.id !== movieId)
+  }
 
 
 
@@ -33,9 +42,6 @@ export class AppManager {
   
   findListWithMovie = (movieId) => {
     return(Object.values(this.getAllLists()).find(list => list.getMovieById(movieId)))
-  }
-  removeItem = (movieId) => {
-    this.findListWithMovie(movieId).removeMovie(movieId)
   }
   save
 }
