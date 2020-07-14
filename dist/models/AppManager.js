@@ -3,37 +3,39 @@ import { MovieList } from './MovieList.js'
 
 export class AppManager {
   constructor(){
-    this._currentSearchItems = new MovieList([],'search')
-    this._currentMustItems = new MovieList([],'must')
-    this._currentDoneItems = new MovieList([],'done')
+    this.movieLists = {
+      search: new MovieList([],'search'),
+      must: new MovieList([],'must'),
+      done: new MovieList([],'done')
+    }
   }
-  get currentSearchedItems(){
-    return this._currentSearchItems
+  getAllLists(){
+    return this.movieLists
   }
-  get currentMustItems(){
-    return this._currentMustItems
+  updateMovieList(listName, dataArray){
+    const newMovieArray = dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster))
+    this.movieLists[listName] = new MovieList(newMovieArray, listName)
   }
-  get currentDoneItems(){
-    return this._currentDoneItems
+  moveFromListToList(fromList, toList, movieId){
+    this.movieLists[fromList].moveToList(this.movieLists[toList], movieId)
   }
+
+
+
+
   createCurrentSearchList(dataArray){
     this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)),'search')
     this._currentSearchItems.movieList.forEach(movie => movie.setCurrentList(this._currentSearchItems))
   }
-  moveFromListToList(fromList, toList, movieId){
-    fromList.moveToList(toList, movieId)
-  }
-  getAllLists = () => {
-    return {
-      searchList: this._currentSearchItems,
-      mustList: this._currentMustItems,
-      doneList: this._currentDoneItems
-    }
-  }
+  // moveFromListToList(fromList, toList, movieId){
+  //   fromList.moveToList(toList, movieId)
+  // }
+  
   findListWithMovie = (movieId) => {
     return(Object.values(this.getAllLists()).find(list => list.getMovieById(movieId)))
   }
   removeItem = (movieId) => {
     this.findListWithMovie(movieId).removeMovie(movieId)
   }
+  save
 }

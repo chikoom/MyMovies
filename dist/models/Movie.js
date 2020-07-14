@@ -8,4 +8,11 @@ export class Movie {
   setCurrentList(movieList){
     this.currentList = movieList
   }
+  simpleVersion(){
+    return {
+      id: this.id,
+      title: this.title,
+      posterURL: this.posterURL,
+    }
+  }
 }

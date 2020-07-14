@@ -1,12 +1,13 @@
 export class StorageManager{
   constructor(){
-    this._currentUsersData = localStorage.getItem('users') || 
-                              [{ default: {
+    this._currentUsersData = JSON.parse(localStorage.getItem('users')) || 
+                              { default: {
                                   username: 'default',
                                   darkLight: 'light',
                                   watchList: {},
                                   doneList: {}
-                              }}]
+                              }}
+    this._lastLoggedUser = localStorage.getItem('lastLoggedUser') || 'default'
   }
   get usersData(){
     return this._currentUsersData
@@ -20,14 +21,21 @@ export class StorageManager{
   setUserTheme(userName, theme){
     this._currentUsersData.find(user => userName === user.username).darkLight = theme
   }
-  getUserWatchlist(userName){
-    return this._currentUsersData.find(user => userName === user.username).watchList
+  saveCurrentLists(userName, movieLists){
+    this._currentUsersData[userName] = {
+      username: userName,
+      darkLight: 'light',
+      watchList: movieLists.mustList.simpleVersion(),
+      doneList: movieLists.doneList.simpleVersion()
+    }
+    localStorage.setItem('users', JSON.stringify(this._currentUsersData))
+    localStorage.setItem('lastLoggedUser', userName)
   }
-  setUserWatchlist(userName, watchList){
-    this._currentUsersData.find(user => userName === user.username).watchList = watchList
+  saveToStorage(usersData){
+    localStorage.setItem('users', JSON.stringify(usersData))
+    localStorage.setItem('lastLoggedUser', userName)
   }
-  saveCurrentLists(userName, watchList, doneList){
-    this.getUserFromStorage(userName).watchList = watchList
-    this.getUserFromStorage(userName).doneList = doneList
+  get lastLoggedUser(){
+    return this._lastLoggedUser
   }
 }

@@ -1,4 +1,4 @@
-export class APIManager {
+export class API {
   searchMovie(query){
     return $.get(`/movie/${query}`)
   }
