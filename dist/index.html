@@ -44,7 +44,7 @@
     <div class="movie-list-container" data-listname="{{list}}">
     {{#each data}}
       <div data-id="{{id}}" class="single-movie-container">
-        <img class="single-movie-poster" src="{{posterURL}}">
+        <img onerror="this.src='./assets/noposter.jpg'" class="single-movie-poster" src="{{posterURL}}">
         <h3 class="single-movie-title">{{title}}</h3>
         <h3 class="single-movie-id">{{id}}</h3>
         <div class="single-movie-buttons">
