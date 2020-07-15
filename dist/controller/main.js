@@ -12,6 +12,7 @@ const savedData = storageManager.getSavedData()
 appManager.initiateFromStorage(savedData)
 renderer.renderData(appManager.getCurrentUser())
 renderer.renderNav(appManager.getCurrentData())
+renderer.renderTheme(appManager.getCurrentUserTheme())
 
 $('#btn-search').on('click', function() {
   const searchQueary = $('#input-search').val()
@@ -48,19 +49,11 @@ $('#create-user').on('click', function(){
 })
 
 $('#select-user').on('change', function(){
-  //const themeName = $('#theme-change').data('theme')
   const selectedUserName = $(this).val()
-
-  //renderer.renderTheme(storageManager.getTheme() || storageManager.setTheme(themeName))
   appManager.loadUser(selectedUserName)
   renderer.renderLists(appManager.getAllLists())
-
-  // storageManager.updateCurrentUser((selectedUserName === '0')? '0':selectedUserName)
-  // appManager.clearMovieLists()
-  // appManager.recreateFromStorage(storageManager.getCurrentUsersData(),storageManager.getCurrentUser())
-  // renderer.renderLists(appManager.getAllLists())
-  // renderer.renderNav(storageManager.getAllUsers(), storageManager.getCurrentUser())
-  
+  renderer.renderTheme(appManager.getCurrentUserTheme())
+  storageManager.saveCurrentUser(appManager.getCurrentUser())
 })
 
 
@@ -78,8 +71,7 @@ $('#select-user').on('change', function(){
 
 
 $('#save-to-storage').on('click', function(){
-  const allMovieLists = appManager.getAllLists()
-  storageManager.saveCurrentLists(allMovieLists)
+  storageManager.saveCurrentUser(appManager.getCurrentUser())
 })
 
 
@@ -88,9 +80,11 @@ $('#save-to-storage').on('click', function(){
 
 $('#dark-light-container').on('click', '#theme-change', function() {
   const themeName = $('#theme-change').data('theme')
-  console.log(themeName)
-  storageManager.setTheme(themeName)
+  appManager.setUserTheme(themeName)
   renderer.renderTheme(themeName)
-  const allMovieLists = appManager.getAllLists()
-  storageManager.saveCurrentLists(allMovieLists)
+  storageManager.saveCurrentUser(appManager.getCurrentUser())
+
+  //renderer.renderTheme(themeName)
+  //const allMovieLists = appManager.getAllLists()
+  //storageManager.saveCurrentLists(allMovieLists)
 })

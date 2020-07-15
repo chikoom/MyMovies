@@ -6,5 +6,5 @@ export class User {
       must:must || [],
       done:done || []
     }
-    theme = theme || 'light'
+    this.theme = theme || 'light'
   }}

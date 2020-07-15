@@ -58,55 +58,10 @@ export class AppManager {
       this.currentUser = this.savedUsers.find(user => user.username === username)
       this.currentUser.movieLists.search = []
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  updateMovieList(listName, dataArray){
-    dataArray.forEach(movie => {
-      this.movieLists[listName].push(new Movie(movie.id, movie.title, movie.posterURL))
-    })
+  getCurrentUserTheme(){
+    return this.currentUser.theme
   }
-  recreateFromStorage(storedData, currentUser){
-    if(currentUser !== '0'){
-      this.updateMovieList('done', storedData[currentUser].done)
-      this.updateMovieList('must', storedData[currentUser].must)
-    }
-    
+  setUserTheme(themeName){
+    this.currentUser.theme = themeName
   }
-  
-  clearList(listName){
-    this.movieLists[listName] = []
-  }
-  clearMovieLists(){
-    this.movieLists = {
-      search: [],
-      must: [],
-      done: []
-    }
-  }
-
-
-
-  createCurrentSearchList(dataArray){
-    this._currentSearchItems = new MovieList(dataArray.map(movie => new Movie(movie.id, movie.title, movie.poster)),'search')
-    this._currentSearchItems.movieList.forEach(movie => movie.setCurrentList(this._currentSearchItems))
-  }
-  // moveFromListToList(fromList, toList, movieId){
-  //   fromList.moveToList(toList, movieId)
-  // }
-  
-  findListWithMovie = (movieId) => {
-    return(Object.values(this.getAllLists()).find(list => list.getMovieById(movieId)))
-  }
-  save
 }

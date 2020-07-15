@@ -6,23 +6,6 @@ export class StorageManager{
       lastLoggedUser: 'default',
       savedUsers: []
     }
-
-
-
-
-
-
-
-
-    this._currentUsersData = JSON.parse(localStorage.getItem('users')) || 
-                              { "default": {
-                                  username: 'default',
-                                  darkLight: 'light',
-                                  must: [],
-                                  done: []
-                              }}
-    this._lastLoggedUser = localStorage.getItem('lastLoggedUser') || 'default'
-    this._allUsers = Object.keys(this._currentUsersData)
   }
   getSavedData(){
     return this.currentSavedData
