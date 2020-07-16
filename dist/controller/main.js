@@ -56,6 +56,18 @@ $('#select-user').on('change', function(){
   storageManager.saveCurrentUser(appManager.getCurrentUser())
 })
 
+$('.btn-tab').on('click', function(){
+  const tabName = $(this).data('id')
+  
+  $(`.starbtn`).removeClass('starbtn')
+  $('.activebtn').removeClass('activebtn')
+  $(this).addClass('activebtn')
+
+  $(`.startab`).removeClass('startab')
+  $(`.active-tab`).removeClass('active-tab')
+  $(`#${tabName}-tab`).addClass('active-tab')
+})
+
 
 
 
