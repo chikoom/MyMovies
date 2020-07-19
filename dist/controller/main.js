@@ -57,15 +57,7 @@ $('#select-user').on('change', function(){
 })
 
 $('.btn-tab').on('click', function(){
-  const tabName = $(this).data('id')
-  
-  $(`.starbtn`).removeClass('starbtn')
-  $('.activebtn').removeClass('activebtn')
-  $(this).addClass('activebtn')
-
-  $(`.startab`).removeClass('startab')
-  $(`.active-tab`).removeClass('active-tab')
-  $(`#${tabName}-tab`).addClass('active-tab')
+  renderer.renderTabSwitch($(this))
 })
 
 $('#input-search').on('focus', function(){
@@ -99,8 +91,4 @@ $('#dark-light-container').on('click', '#theme-change', function() {
   appManager.setUserTheme(themeName)
   renderer.renderTheme(themeName)
   storageManager.saveCurrentUser(appManager.getCurrentUser())
-
-  //renderer.renderTheme(themeName)
-  //const allMovieLists = appManager.getAllLists()
-  //storageManager.saveCurrentLists(allMovieLists)
 })

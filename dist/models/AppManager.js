@@ -1,15 +1,8 @@
 import { Movie } from './Movie.js'
 import { User } from './User.js'
-// import { MovieList } from './MovieList.js'
 
 export class AppManager {
   constructor(){
-    this.movieLists = {
-      search: [],
-      must: [],
-      done: []
-    }
-
     this.currentUser = new User('default', [], [], 'light')
     this.savedUsers = []
   }
@@ -38,10 +31,6 @@ export class AppManager {
   }
   removeItem = (movieList, movieId) => {
     this.currentUser.movieLists[movieList] = this.currentUser.movieLists[movieList].filter(movie => movie.id !== movieId)
-  }
-  setCurrentUsername(username){
-    this.currentUser.username = username
-    console.log(this.currentUser)
   }
   getAllLists(){
     return this.currentUser.movieLists

@@ -17,7 +17,6 @@ export class Renderer {
     }
   }
   renderNav(currentData){
-    console.log(currentData)
     let allUsersOptions = '<option value=0>Switch User Profile</option>'
     currentData.savedUsers.forEach(user => {
       const selected = (user.username === currentData.currentUser.username) ? 'selected=selected' :'' 
@@ -26,10 +25,18 @@ export class Renderer {
     $('#select-user').empty().append(allUsersOptions)
   }
   renderTheme(themeName){
-    console.log(themeName)
     const oppositeTheme = (themeName === 'dark') ? 'light':'dark'
     $('#dark-light-container').empty().append(`<span data-theme="${oppositeTheme}" id="theme-change">To ${oppositeTheme} Mode</span>`)
     $(":root").addClass(themeName)
     $(":root").removeClass(oppositeTheme)
+  }
+  renderTabSwitch(element){
+    const tabName = element.data('id')
+    $(`.starbtn`).removeClass('starbtn')
+    $('.activebtn').removeClass('activebtn')
+    element.addClass('activebtn')
+    $(`.startab`).removeClass('startab')
+    $(`.active-tab`).removeClass('active-tab')
+    $(`#${tabName}-tab`).addClass('active-tab')
   }
 }
