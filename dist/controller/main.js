@@ -68,6 +68,10 @@ $('.btn-tab').on('click', function(){
   $(`#${tabName}-tab`).addClass('active-tab')
 })
 
+$('#input-search').on('focus', function(){
+  $('.btn-tab').first().click()
+})
+
 
 
 
