@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Me!</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
+</head>
+<body>
+  <div id="root-container">
+    <div id="dark-light-container">
+      <span data-theme="dark" id="theme-change"></span>
+    </div>
+    <header><h1>MY WATCH LIST</h1></header>
+    <nav>
+      <div id="topnav">
+        <div id="current-user">Current User: <span id="current-username"></span></div>
+        <select id="select-user">
+          <option selected="selected" value=0>Switch User Profile</option>
+        </select>
+        OR 
+        <input id="input-username" type="text" placeholder="Create new username">
+        <div id="topnav-btns">
+          <button id="create-user">Create User</button>
+          <button id="save-to-storage">Save Lists</button>
+        </div>
+      </div>
+      <ul id="tabs">
+        <li class="btn-tab starbtn" data-id="find">Find</li>
+        <li class="btn-tab starbtn" data-id="watch">Watch</li>
+        <li class="btn-tab starbtn" data-id="done">Done</li>
+      </ul>
+    </nav>
+    <main>
+      <div class="tab startab" id="find-tab">
+        <div class="tab-header">
+          <h2>Search Movies</h2>
+          <input type="text" id="input-search">
+          <button id="btn-search">FIND</button>
+        </div>
+        <div class="results" id="search-results"></div>
+      </div>
+      <div class="tab startab" id="watch-tab">
+        <div class="tab-header">
+          <h2>Must Watch</h2>
+        </div>
+        <div class="results" id="must-results"></div>
+      </div>
+      <div class="tab startab" id="done-tab">
+        <div class="tab-header">
+          <h2>Already Watched</h2>
+        </div>
+        <div class="results" id="done-results"></div>
+      </div>
+    </main>
+  </div>
+  
+  <script id="search-results-template" type="text/x-handlebars-template">
+    <div class="movie-list-container" data-listname="{{list}}">
+    {{#each data}}
+      <div data-id="{{id}}" class="single-movie-container">
+        <div class="single-movie-img-container">
+          <img onerror="this.src='./assets/noposter.jpg'" class="single-movie-poster" src="{{posterURL}}">
+        </div>
+        <h3 class="single-movie-title">{{title}}</h3>
+        <div class="single-movie-buttons">
+          {{#if_eq ../list 'search'}}
+          <button data-target="must" class="move-to-list">Must Watch</button>
+          <button data-target="done" class="move-to-list">Watched</button>
+          {{else}}
+            {{#if_eq ../list 'must'}}
+            <button data-target="done" class="move-to-list">Watched</button>
+            {{else}}
+            <button data-target="must" class="move-to-list">Must Watch</button>
+            {{/if_eq }}
+            <button class="remove-from-list">Remove</button>
+          {{/if_eq }}
+        </div>
+      </div>
+    {{/each}}
+    </div>
+  </script>
+
+  <script src="./handlebars/dist/handlebars.min.js"></script>
+  <script src="./jquery/dist/jquery.min.js"></script>
+  <script src="./controller/main.js" type="module"></script>
+</body>
+</html>
